@@ -1,0 +1,2 @@
+# dewlinq
+Linq for typescript
