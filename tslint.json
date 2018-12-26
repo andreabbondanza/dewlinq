@@ -1,0 +1,36 @@
+{
+    "defaultSeverity": "warning",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "./**/*.vue"
+        ]
+    },
+    "jsRules": {},
+    "rules": {
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape",
+            "avoid-template"
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "false",
+                "singleline": "never"
+            }
+        ],
+        "no-unused-expression": [
+            true,
+            "allow-fast-null-checks"
+        ],
+        "one-line": false,
+        "no-console": false,
+        "object-literal-sort-keys": true,
+        "curly": false,
+        "space-before-function-paren": false    },
+    "rulesDirectory": []
+}
