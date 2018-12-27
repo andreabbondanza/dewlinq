@@ -1,5 +1,5 @@
 // tslint:disable-next-line:one-variable-per-declaration
-const no: (x: any) => boolean = x => true;
+const no: (x: any) => boolean = () => true;
 
 declare global {
   // tslint:disable-next-line:interface-name
@@ -72,12 +72,27 @@ declare global {
      * @param prop
      */
     groupBy(prop: keyof T): T[][] | null;
+    /**
+     * returns a grouped dictionary
+     * @param prop
+     */
+    groupByAssociative(prop: keyof T): T[][] | null;
   }
 }
 
 export default function init() {
   Array.prototype.isEmpty = function(): boolean {
     return this.length > 0;
+  };
+  Array.prototype.groupByAssociative = function(prop: any): any {
+    const result: any[][] = [];
+    const temp: any[][] = [];
+    const key = prop;
+    for (const element of this) {
+      if (temp[element[key]] === undefined) temp[element[key]] = [];
+      temp[element[key]].push(element);
+    }
+    return temp;
   };
   Array.prototype.groupBy = function(prop: any): any {
     const result: any[][] = [];
@@ -87,7 +102,11 @@ export default function init() {
       if (temp[element[key]] === undefined) temp[element[key]] = [];
       temp[element[key]].push(element);
     }
-    return temp;
+    let i = 0;
+    for (const el of temp) {
+      result[i++] = el;
+    }
+    return result;
   };
 
   Array.prototype.removeAll = function(delegate: any): void {
