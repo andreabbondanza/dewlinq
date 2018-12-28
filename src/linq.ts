@@ -58,7 +58,7 @@ declare global {
      * @param delegate a delegate that return true or false, pass **no** in first case
      * @returns **Array<T> elements** or **empty Array<T>** if not found
      */
-    where(delegate: ((x: T) => boolean)): T[] | null;
+    where(delegate: ((x: T) => boolean)): T[];
     /**
      * Select
      * @type T
@@ -66,17 +66,17 @@ declare global {
      * @param delegate a delegate that return true or false, pass **no** in first case
      * @returns **Array<U> elements** or **empty Array<U>** if not found
      */
-    select<U>(delegate: ((x: T) => U)): U[] | null;
+    select<U>(delegate: ((x: T) => U)): U[];
     /**
      * returns a grouped dictionary
      * @param prop
      */
-    groupBy(prop: keyof T): T[][] | null;
+    groupBy(prop: keyof T): T[][];
     /**
      * returns a grouped dictionary
      * @param prop
      */
-    groupByAssociative(prop: keyof T): T[][] | null;
+    groupByAssociative(prop: keyof T): T[][];
   }
 }
 
@@ -102,9 +102,11 @@ export default function init() {
       if (temp[element[key]] === undefined) temp[element[key]] = [];
       temp[element[key]].push(element);
     }
-    let i = 0;
-    for (const el of temp) {
-      result[i++] = el;
+    for (const k in temp) {
+      if (temp.hasOwnProperty(k)) {
+        const element = temp[k];
+        result.push(element);
+      }
     }
     return result;
   };
