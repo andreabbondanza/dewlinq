@@ -172,11 +172,7 @@ export default function init() {
   };
 
   Array.prototype.where = function(delegate): any {
-    const result: any[] = [];
-    for (const element of this) {
-      if (delegate(element)) result.push(element);
-    }
-    return result;
+    return this.filter((x) => delegate(x));
   };
 
   Array.prototype.elementAt = function(i: number): any {
