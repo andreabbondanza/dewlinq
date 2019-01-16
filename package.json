@@ -1,6 +1,6 @@
 {
   "name": "dewlinq",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.11",
   "markdown": "github",
   "description": "Linq for ts",
   "main": "lib/linq.js",
