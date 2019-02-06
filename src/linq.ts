@@ -1,11 +1,9 @@
 // tslint:disable-next-line:one-variable-per-declaration
 const no: (x: any) => boolean = () => true;
 
-declare global
-{
+declare global {
   // tslint:disable-next-line:interface-name
-  interface Array<T>
-  {
+  interface Array<T> {
     /**
      * Return true if collection is empty
      */
@@ -94,186 +92,156 @@ declare global
   }
 }
 
-export default function init()
-{
+export default function init() {
   Object.defineProperty(Array.prototype, 'isEmpty', {
-    value(): boolean
-    {
+    value(): boolean {
       return this.length > 0;
-    }
+    },
   });
   Object.defineProperty(Array.prototype, 'groupByAssociative', {
-    value(prop: any): any
-    {
+    value(prop: any): any {
       const temp: any[][] = [];
       const key = prop;
-      for (const element of this)
-      {
+      for (const element of this) {
         if (temp[element[key]] === undefined) temp[element[key]] = [];
         temp[element[key]].push(element);
       }
       return temp;
-    }
+    },
   });
   Object.defineProperty(Array.prototype, 'groupBy', {
-    value(prop: any): any
-    {
+    value(prop: any): any {
       const result: any[][] = [];
       const temp: any[][] = [];
       const key = prop;
-      for (const element of this)
-      {
+      for (const element of this) {
         if (temp[element[key]] === undefined) temp[element[key]] = [];
         temp[element[key]].push(element);
       }
-      for (const k in temp)
-      {
-        if (temp.hasOwnProperty(k))
-        {
+      for (const k in temp) {
+        if (temp.hasOwnProperty(k)) {
           const element = temp[k];
           result.push(element);
         }
       }
       return result;
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'removeAll', {
-    value(delegate: any): void
-    {
+    value(delegate: any): void {
       const indexes = [];
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.length; i++)
-      {
+      for (let i = 0; i < this.length; i++) {
         const element = this[i];
-        if (delegate(element))
-        {
+        if (delegate(element)) {
           indexes.push(i);
         }
       }
       let tempI = 0;
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < indexes.length; i++)
-      {
+      for (let i = 0; i < indexes.length; i++) {
         const index = indexes[i];
         this.splice(index - tempI++, 1);
       }
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'remove', {
-    value(delegate: any): any
-    {
+    value(delegate: any): any {
       let index = -1;
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.length; i++)
-      {
+      for (let i = 0; i < this.length; i++) {
         const element = this[i];
-        if (delegate(element))
-        {
+        if (delegate(element)) {
           index = i;
           break;
         }
       }
-      if (index > -1 && index < this.length)
-      {
+      if (index > -1 && index < this.length) {
         this.splice(index, 1);
         return true;
       }
       return false;
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'removeAt', {
-    value(index: number): any
-    {
-      if (index > -1 && index < this.length)
-      {
+    value(index: number): any {
+      if (index > -1 && index < this.length) {
         this.splice(index, 1);
         return true;
       }
       return false;
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'get', {
-    value(key: any): any
-    {
-      for (const element of this)
-      {
-        if (element.key === key)
-        {
+    value(key: any): any {
+      for (const element of this) {
+        if (element.key === key) {
           return element.value;
         }
       }
       return null;
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'select', {
-    value<U>(delegate: any): any
-    {
+    value<U>(delegate: any): any {
       const result: U[] = [];
-      for (const element of this)
-      {
+      for (const element of this) {
         result.push(delegate(element));
       }
       return result;
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'where', {
-    value(delegate: any): any
-    {
+    value(delegate: any): any {
       return this.filter((x: any) => delegate(x));
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'elementAt', {
-    value(i: number): any
-    {
+    value(i: number): any {
       if (this.length > i) return this[i];
       return null;
-    }
+    },
   });
 
   Object.defineProperty(Array.prototype, 'exists', {
-    value(delegate: (arg0: any) => boolean): any
-    {
+    value(delegate: (arg0: any) => boolean): any {
       for (const element of this) if (delegate(element)) return true;
       return false;
-    }
+    },
   });
   Object.defineProperty(Array.prototype, 'firstOnly', {
-    value(): any
-    {
+    value(): any {
       return this.length > 0 ? this[0] : null;
-    }
+    },
   });
   Object.defineProperty(Array.prototype, 'lastOnly', {
-    value(): any
-    {
+    value(): any {
       {
         return this.length > 0 ? this[this.length - 1] : null;
       }
-    }
+    },
   });
   Object.defineProperty(Array.prototype, 'first', {
-    value(delegate: (arg0: any) => boolean): any
-    {
+    value(delegate: (arg0: any) => boolean): any {
       for (const element of this) if (delegate(element)) return element;
       return null;
-    }
+    },
   });
   Object.defineProperty(Array.prototype, 'last', {
-    value(delegate: (arg0: any) => boolean): any
-    {
+    value(delegate: (arg0: any) => boolean): any {
       {
         let result: any = null;
         for (const element of this) if (delegate(element)) result = element;
         return result;
       }
-    }
+    },
   });
 }
 
